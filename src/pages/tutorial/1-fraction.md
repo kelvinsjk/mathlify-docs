@@ -1,6 +1,6 @@
 ---
 title: Fraction tutorial
-description: The Fraction class tutorial
+description: Guided examples for the Fraction class
 layout: ../../layouts/MainLayout.astro
 setup: |
   import T1aDemo from '../../components/Demos/T1aDemo.svelte';
