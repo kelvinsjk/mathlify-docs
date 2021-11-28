@@ -7,6 +7,9 @@ setup: |
   import IndexDemo from '../components/Demos/IndexDemo.svelte';
   const codeBash = `# install via npm\rnpm i mathlify`;
   const codeImport = `// example.js\rimport { Fraction, Polynomial } from 'mathlify';`;
+  // workaround
+  const Q = "Q";
+  const Z = "Z";
 ---
 ## What is Mathlify
 

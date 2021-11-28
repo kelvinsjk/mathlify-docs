@@ -2,6 +2,8 @@
 title: Overview
 description: Overview of Mathlify
 layout: ../../layouts/MainLayout.astro
+setup: |
+  const R = "R", Q = "Q", pmatrix = "pmatrix", i = "i";
 ---
 
 ## Mathematical Overview

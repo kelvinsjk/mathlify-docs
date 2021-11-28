@@ -3,12 +3,12 @@ title: Polynomial tutorial
 description: Guided examples for the Polynomial class
 layout: ../../layouts/MainLayout.astro
 setup: |
-  import T1aDemo from '../../components/Demos/T1aDemo.svelte';
-  import T1bDemo from '../../components/Demos/T1bDemo.svelte';
-  import T1cDemo from '../../components/Demos/T1cDemo.svelte';
+  import T3aDemo from '../../components/Demos/T3aDemo.svelte';
+  import T3bDemo from '../../components/Demos/T3bDemo.svelte';
+  import T3cDemo from '../../components/Demos/T3cDemo.svelte';
 ---
 
-## Why the Polynomials class?
+## Why the Polynomial class?
 
 Polynomials are the most common type of expressions we will encounter.
 The `Polynomial` class extends the `xExpression` class and includes
@@ -26,6 +26,8 @@ We can also supply options to change the polynomial to ascending order, change
 the `variableAtom` and explicitly set the degree of the polynomial (instead
 of inferring from the coefficient array).
 
+### Demo of constructor and toString method
+
 ```js
 import { Polynomial, Fraction } from 'mathlify';
 const oneHalf = new Fraction(1,2); // 1/2 
@@ -38,36 +40,19 @@ const threeY2MinusYPlusHalf = new Polynomial([3, -1, oneHalf], {variableAtom: "y
 ```
 
 <!-- markdownlint-disable -->
-<T1aDemo />
+<T3aDemo />
 <!-- markdownlint-enable -->
 
 ## Class methods
 
-### toString method
-
-The `toString` method outputs the $\LaTeX$ representation of the fraction instance.
-Integers will be typeset accordingly.
-
-```js
-import { Fraction } from 'mathlify';
-const oneHalf = new Fraction(1,2); // 1/2 
-const negativeThree = new Fraction(-3,1); // -3
-// toString method
-oneHalf.toString(); // "\\frac{1}{2}"
-// using template literal
-`${negativeThree} + ${oneHalf}`; // "- 3 + \\frac{1}{2}"
-```
-
-<!-- markdownlint-disable -->
-<T1aDemo />
-<!-- markdownlint-enable -->
-
 ### Polynomial addition and multiplication
 
-The usual arithmetic operations of addition, subtraction, multiplication, division
-and exponentiation are implemented as the `plus`, `minus`, `times`, `divide`, `pow`
-methods. The first four support inputs of type `Fraction` or `number`. They can
-also be chained together.
+Polynomial addition, subtraction and multiplication are supported via the
+`add`, `subtract` and `multiply` methods.
+
+Mathlify does not check for if the `variableAtom` is the same for both polynomials
+so it is up to the user to ensure that they are the same. The `variableAtom` and
+`ascending` options of the first `polynomial` are used for the result.
 
 ```js
 import { Fraction } from 'mathlify';
@@ -84,7 +69,7 @@ oneHalf.minus(threeQuarter).divide(2); // -1/8
 ```
 
 <!-- markdownlint-disable -->
-<T1bDemo />
+<T3bDemo />
 <!-- markdownlint-enable -->
 
 Other useful arithmetic methods that are included are `negative`, `abs`, `reciprocal`
@@ -119,7 +104,7 @@ const [[a,b], k] = Fraction.factorize(oneHalf, threeQuarter); // [[2, 3], 1/4]
 ```
 
 <!-- markdownlint-disable -->
-<T1cDemo />
+<T3cDemo />
 <!-- markdownlint-enable -->
 
 ## Possible errors

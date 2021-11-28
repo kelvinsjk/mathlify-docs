@@ -6,6 +6,7 @@ setup: |
   import T2aDemo from '../../components/Demos/T2aDemo.svelte';
   import T2bDemo from '../../components/Demos/T2bDemo.svelte';
   import T2cDemo from '../../components/Demos/T2cDemo.svelte';
+  const i = "i";
 ---
 
 ## The Term class

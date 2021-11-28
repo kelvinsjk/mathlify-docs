@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import katex from 'katex';
 	import {Fraction, Polynomial, getRandomInt} from 'mathlify';
 	import Prism from 'prismjs';
