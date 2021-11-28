@@ -1,6 +1,6 @@
 ---
-title: Fraction tutorial
-description: Guided examples for the Fraction class
+title: Polynomial tutorial
+description: Guided examples for the Polynomial class
 layout: ../../layouts/MainLayout.astro
 setup: |
   import T1aDemo from '../../components/Demos/T1aDemo.svelte';
@@ -8,40 +8,38 @@ setup: |
   import T1cDemo from '../../components/Demos/T1cDemo.svelte';
 ---
 
-## Why the Fraction class?
+## Why the Polynomials class?
 
-Cases like $\frac{6}{4}, \frac{3}{1}$ and $\frac{5}{-2}$ are avoided when we use
-the `Fraction` class in Mathlify. They will be automatically converted to and typeset as
-$\frac{3}{2}, 3$ and $- \frac{5}{2}$ respectively.
-
-The class methods discussed below also handle common operations when working
-with fractions.
+Polynomials are the most common type of expressions we will encounter.
+The `Polynomial` class extends the `xExpression` class and includes
+support for polynomial multiplication in addition to scalar multiplication.
 
 ## Constructor
 
-To create a new `Fraction` instance, we call the constructor and
-supply the numerator and denominator.
+To create a new `Polynomial` instance, we call the constructor and
+supply an array with the coefficients of the Polynomial.
+
+By default, we assume that the polynomial is in descending order terminating
+at the constant term with a `variableAtom` of "x".
+
+We can also supply options to change the polynomial to ascending order, change
+the `variableAtom` and explicitly set the degree of the polynomial (instead
+of inferring from the coefficient array).
 
 ```js
-import { Fraction } from 'mathlify';
-// constructor
+import { Polynomial, Fraction } from 'mathlify';
 const oneHalf = new Fraction(1,2); // 1/2 
-// automatic simiplification
-const twoThird = new Fraction(-4,-6); // 2/3
+// constructor
+const threeX2MinusXPlusHalf = new Polynomial([3, -1, oneHalf]);
+// options
+const onePlusTwoX = new Polynomial([1, 2], {ascending: true});
+const x9MinusTwoX7 = new Polynomial([1, 0, 2], {degree: 9});
+const threeY2MinusYPlusHalf = new Polynomial([3, -1, oneHalf], {variableAtom: "y"});
 ```
 
-## Class Properties
-
-After simplification, the numerator and denominator of the fraction will be stored as
-`num` and `den`, where `num` is an integer and `den` is a positive integer.
-
-```js
-import { Fraction } from 'mathlify';
-const twoThird = new Fraction(-4,-6);
-// num and den properties
-const numerator = twoThird.num; // 2
-const denominator = twoThird.den; // 3
-```
+<!-- markdownlint-disable -->
+<T1aDemo />
+<!-- markdownlint-enable -->
 
 ## Class methods
 
@@ -64,7 +62,7 @@ oneHalf.toString(); // "\\frac{1}{2}"
 <T1aDemo />
 <!-- markdownlint-enable -->
 
-### Arithmetic methods
+### Polynomial addition and multiplication
 
 The usual arithmetic operations of addition, subtraction, multiplication, division
 and exponentiation are implemented as the `plus`, `minus`, `times`, `divide`, `pow`
@@ -92,42 +90,11 @@ oneHalf.minus(threeQuarter).divide(2); // -1/8
 Other useful arithmetic methods that are included are `negative`, `abs`, `reciprocal`
 and `square`: see the API reference for more details.
 
-### Comparison methods
+### Substituting values
 
-We provide comparison methods `isInteger`, `isEqualTo`, `isGreaterThan`,
-`isLesserThan`, `isAtLeast` and `isAtMost`.
+Test
 
-```js
-import { Fraction } from 'mathlify';
-const oneHalf = new Fraction(1,2); // 1/2 
-const negativeThree = new Fraction(-3, 1); // -3
-// comparison
-oneHalf.isInteger(); // false
-negativeThree.isInteger(); // true
-oneHalf.isGreaterThan(negativeThree); // true
-negativeThree.isEqualTo(-3); // true
-oneHalf.isAtMost(-3); // false
-```
-
-### Conversion to primitive types
-
-The `valueOf` method converts the Fraction instance to the Javascript `number`
-type. The `sign`, `toFixed` and `toPrecision` methods are also implemented for
-the `Fraction` class.
-
-```js
-import { Fraction } from 'mathlify';
-const twoThird = new Fraction(2,3); // 2/3
-const negativeThree = new Fraction(-3, 1); // -3
-// to number type
-twoThird.valueOf(); // 0.66666666667
-negativeThree.sign(); // -1
-// to String type
-twoThird.toPrecision(3); // "0.667"
-negativeThree.toFixed(2); // "-3.00"
-```
-
-## Static methods and properties
+## Static properties
 
 The building blocks $0$ and $1$ are implemented as a static property.
 
@@ -157,7 +124,5 @@ const [[a,b], k] = Fraction.factorize(oneHalf, threeQuarter); // [[2, 3], 1/4]
 
 ## Possible errors
 
-Errors will be thrown if:
-
-- 0 is provided as the denominator, e.g. `new Fraction(1,0)`
-- A non-integer is provided, e.g. `new Fraction(2.1,3)`
+The `Polynomial` class only supports non-negative powers: an error will be
+thrown if the negative powers are encountered.
